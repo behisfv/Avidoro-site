@@ -1,0 +1,8 @@
+# Design/working files — kept locally, not published
+.thumbnail
+*.dc.html
+*.export.html
+*(standalone).html
+image-slot.js
+support.js
+uploads/
