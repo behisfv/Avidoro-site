@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%}html,body{overflow-x:hidden}img,image-slot{max-width:100%}@media (max-width:640px){input,select,textarea{font-size:16px!important}}
+body{margin:0;background:#fff;font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#17211e}
+a{color:oklch(0.45 0.06 185);text-decoration:none}a:hover{color:oklch(0.58 0.11 48)}
+input,select,button{font-family:inherit}
+input[type=range]{-webkit-appearance:none;appearance:none;height:4px;background:rgba(23,33,30,.14);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#17211e;cursor:pointer;border:3px solid #fff;box-shadow:0 1px 4px rgba(23,33,30,.3)}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style></helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column">
+
+<div style="background:#17211e;color:rgba(247,244,238,.72);font-size:12px;line-height:1;padding:10px 0">
+<div style="max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,44px);display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;justify-content:space-between">
+<div style="display:flex;flex-wrap:wrap;gap:8px 22px"><span>Barcelona · Vancouver · Toronto</span><span>Mon–Sat 9:00–18:00 CET / 3:00–12:00 ET</span></div>
+</div>
+</div>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(250,248,244,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(23,33,30,.1)">
+<div style="max-width:1240px;margin:0 auto;padding:14px clamp(18px,4vw,44px);min-height:76px;box-sizing:border-box;display:flex;align-items:center;gap:clamp(14px,2.5vw,34px)">
+<div onClick="{{ goHome }}" style="font:400 27px/1 'Instrument Serif',Georgia,serif;letter-spacing:.01em;cursor:pointer;flex:none">Avidoro</div>
+<sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><nav style="display:flex;flex-wrap:wrap;gap:10px clamp(12px,1.8vw,26px);flex:1;min-width:0">
+<sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}">
+<div onClick="{{ goMortgages }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#2c3a36;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">Mortgages</div>
+<div onClick="{{ goProperty }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#2c3a36;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">Property</div>
+<div onClick="{{ goHealth }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#2c3a36;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">Health cover</div>
+<div onClick="{{ goAbout }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#2c3a36;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">About</div>
+<div onClick="{{ goContact }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#2c3a36;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">Contact</div>
+<div onClick="{{ goDashboard }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#6b7a74;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">My file</div>
+</sc-if>
+<sc-if value="{{ isEs }}">
+<div onClick="{{ goMortgages }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#2c3a36;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">Hipotecas</div>
+<div onClick="{{ goProperty }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#2c3a36;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">Inmuebles</div>
+<div onClick="{{ goHealth }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#2c3a36;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">Salud</div>
+<div onClick="{{ goAbout }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#2c3a36;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">Nosotros</div>
+<div onClick="{{ goContact }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#2c3a36;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">Contacto</div>
+<div onClick="{{ goDashboard }}" style="font:500 14px 'Hanken Grotesk',sans-serif;color:#6b7a74;cursor:pointer;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent" style-hover="border-bottom-color:oklch(0.63 0.11 48)">Mi expediente</div>
+</sc-if>
+</nav></sc-if>
+<div style="display:flex;gap:10px;align-items:center;flex:none;margin-left:auto">
+<sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;font:500 11px 'IBM Plex Mono',monospace;border:1px solid rgba(23,33,30,.2);border-radius:4px;overflow:hidden">
+<div onClick="{{ setEn }}" style="padding:7px 9px;cursor:pointer;background:{{ enBg }};color:{{ enFg }}">EN</div>
+<div onClick="{{ setEs }}" style="padding:7px 9px;cursor:pointer;background:{{ esBg }};color:{{ esFg }}">ES</div>
+</div>
+<div style="display:flex;font:500 11px 'IBM Plex Mono',monospace;border:1px solid rgba(23,33,30,.2);border-radius:4px;overflow:hidden">
+<div onClick="{{ setUsd }}" style="padding:7px 9px;cursor:pointer;background:{{ usdBg }};color:{{ usdFg }}">USD</div>
+<div onClick="{{ setCad }}" style="padding:7px 9px;cursor:pointer;background:{{ cadBg }};color:{{ cadFg }}">CAD</div>
+<div onClick="{{ setEur }}" style="padding:7px 9px;cursor:pointer;background:{{ eurBg }};color:{{ eurFg }}">EUR</div>
+</div>
+</sc-if>
+<div onClick="{{ goQuote }}" style="background:oklch(0.63 0.11 48);color:#fff;font:600 13.5px 'Hanken Grotesk',sans-serif;padding:12px 20px;border-radius:4px;cursor:pointer;white-space:nowrap" style-hover="background:oklch(0.56 0.12 48)">{{ ctaQuote }}</div>
+<sc-if value="{{ narrow }}">
+<div onClick="{{ toggleMenu }}" style="width:44px;height:44px;flex:none;border:1px solid rgba(23,33,30,.2);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;background:{{ menuBg }}">
+<div style="width:18px;height:1.5px;background:{{ menuInk }}"></div><div style="width:18px;height:1.5px;background:{{ menuInk }}"></div><div style="width:18px;height:1.5px;background:{{ menuInk }}"></div>
+</div>
+</sc-if>
+</div>
+</div>
+<sc-if value="{{ menuOpen }}">
+<div style="border-top:1px solid rgba(23,33,30,.1);background:#faf8f4">
+<div style="max-width:1240px;margin:0 auto;padding:14px clamp(18px,4vw,44px) 22px;display:flex;flex-direction:column">
+<div onClick="{{ goMortgages }}" style="font:500 16px 'Hanken Grotesk',sans-serif;padding:15px 0;border-bottom:1px solid rgba(23,33,30,.09);cursor:pointer">{{ navMortgages }}</div>
+<div onClick="{{ goProperty }}" style="font:500 16px 'Hanken Grotesk',sans-serif;padding:15px 0;border-bottom:1px solid rgba(23,33,30,.09);cursor:pointer">{{ navProperty }}</div>
+<div onClick="{{ goHealth }}" style="font:500 16px 'Hanken Grotesk',sans-serif;padding:15px 0;border-bottom:1px solid rgba(23,33,30,.09);cursor:pointer">{{ navHealth }}</div>
+<div onClick="{{ goAbout }}" style="font:500 16px 'Hanken Grotesk',sans-serif;padding:15px 0;border-bottom:1px solid rgba(23,33,30,.09);cursor:pointer">{{ navAbout }}</div>
+<div onClick="{{ goContact }}" style="font:500 16px 'Hanken Grotesk',sans-serif;padding:15px 0;border-bottom:1px solid rgba(23,33,30,.09);cursor:pointer">{{ navContact }}</div>
+<div onClick="{{ goDashboard }}" style="font:500 16px 'Hanken Grotesk',sans-serif;color:#6b7a74;padding:15px 0;cursor:pointer">{{ navDashboard }}</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px">
+<div style="display:flex;font:500 12px 'IBM Plex Mono',monospace;border:1px solid rgba(23,33,30,.2);border-radius:4px;overflow:hidden">
+<div onClick="{{ setEn }}" style="padding:11px 14px;cursor:pointer;background:{{ enBg }};color:{{ enFg }}">EN</div>
+<div onClick="{{ setEs }}" style="padding:11px 14px;cursor:pointer;background:{{ esBg }};color:{{ esFg }}">ES</div>
+</div>
+<div style="display:flex;font:500 12px 'IBM Plex Mono',monospace;border:1px solid rgba(23,33,30,.2);border-radius:4px;overflow:hidden">
+<div onClick="{{ setUsd }}" style="padding:11px 14px;cursor:pointer;background:{{ usdBg }};color:{{ usdFg }}">USD</div>
+<div onClick="{{ setCad }}" style="padding:11px 14px;cursor:pointer;background:{{ cadBg }};color:{{ cadFg }}">CAD</div>
+<div onClick="{{ setEur }}" style="padding:11px 14px;cursor:pointer;background:{{ eurBg }};color:{{ eurFg }}">EUR</div>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+</header>
+
+<main style="flex:1">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<section style="position:relative;min-height:clamp(440px,58vw,600px);display:flex;align-items:flex-end;background:#d9d2c6">
+<div style="position:absolute;inset:0"><image-slot id="av-hero" shape="rect" placeholder="Hero — hillside villa or coastline, wide"></image-slot></div>
+<div style="position:relative;width:100%;background:linear-gradient(to top,rgba(23,33,30,.94) 0%,rgba(23,33,30,.78) 55%,rgba(23,33,30,.3) 100%);pointer-events:none">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(60px,9vw,110px) clamp(18px,4vw,44px) clamp(32px,4vw,48px);display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,52px);align-items:flex-end;justify-content:space-between">
+<div style="flex:1 1 420px;min-width:0">
+<sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}">
+<div style="font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:oklch(0.88 0.07 48);margin-bottom:16px">Independent since 2006 · Spain-wide</div>
+<h1 style="font:400 clamp(36px,5.2vw,62px)/1.05 'Instrument Serif',Georgia,serif;color:#f7f4ee;margin:0 0 16px;max-width:640px;text-wrap:pretty">Buy in Spain from Toronto or Texas — with one team handling all of it.</h1>
+<p style="font:400 clamp(15px,1.4vw,17.5px)/1.6 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.88);margin:0;max-width:520px;text-wrap:pretty">Mortgage, property search and health cover, arranged by advisors who negotiate with Spanish banks every day — and who know what a Canadian or US file looks like.</p>
+</sc-if>
+<sc-if value="{{ isEs }}">
+<div style="font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:oklch(0.88 0.07 48);margin-bottom:16px">Independientes desde 2006 · Toda España</div>
+<h1 style="font:400 clamp(34px,5vw,58px)/1.06 'Instrument Serif',Georgia,serif;color:#f7f4ee;margin:0 0 16px;max-width:660px;text-wrap:pretty">Compre en España desde Toronto o Texas — con un solo equipo al frente de todo.</h1>
+<p style="font:400 clamp(15px,1.4vw,17.5px)/1.6 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.88);margin:0;max-width:540px;text-wrap:pretty">Hipoteca, búsqueda de vivienda y seguro de salud, gestionados por asesores que negocian con la banca española cada día.</p>
+</sc-if>
+</div>
+<div style="flex:0 1 340px;min-width:280px;background:#f7f4ee;border-radius:6px;padding:24px 26px;pointer-events:auto;box-shadow:0 12px 40px rgba(23,33,30,.28)">
+<div style="font:600 15px/1.3 'Hanken Grotesk',sans-serif;margin-bottom:4px">{{ quoteCardTitle }}</div>
+<div style="font:400 12.5px/1.5 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-bottom:16px">{{ quoteCardSub }}</div>
+<div style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px">
+<select value="{{ country }}" onChange="{{ setCountry }}" style="border:1px solid rgba(23,33,30,.18);border-radius:4px;padding:11px 12px;font-size:13.5px;color:#17211e;background:#fff"><option value="Canada">I live in — Canada</option><option value="United States">I live in — United States</option><option value="Spain">I live in — Spain</option></select>
+<div style="border:1px solid rgba(23,33,30,.18);border-radius:4px;padding:9px 12px 11px;background:#fff">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:400 10.5px 'IBM Plex Mono',monospace;color:#8a968f">PROPERTY PRICE</span><span style="font:600 15px 'Hanken Grotesk',sans-serif">{{ priceLabel }}</span></div>
+<input type="range" min="150000" max="3000000" step="10000" value="{{ priceEur }}" onChange="{{ setPrice }}" style="width:100%;margin-top:9px">
+</div>
+</div>
+<div onClick="{{ goQuote }}" style="background:#17211e;color:#f7f4ee;text-align:center;font:600 14px 'Hanken Grotesk',sans-serif;padding:14px;border-radius:4px;cursor:pointer" style-hover="background:#28352f">{{ quoteCardCta }}</div>
+</div>
+</div>
+</div>
+</section>
+
+<div style="background:#17211e;border-top:1px solid rgba(247,244,238,.12)">
+<div style="max-width:1240px;margin:0 auto;padding:12px clamp(18px,4vw,44px);display:flex;flex-wrap:wrap;gap:10px 26px;font:400 11.5px 'IBM Plex Mono',monospace;color:rgba(247,244,238,.6)">
+<span>EURIBOR 12M · {{ euriborTxt }}</span><span style="color:oklch(0.85 0.09 48)">BEST FIXED 20Y · 2.85%</span><span>EUR/USD · {{ usdTxt }}</span><span>EUR/CAD · {{ cadTxt }}</span><span style="margin-left:auto;display:flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:50%;background:{{ liveDot }}"></span>{{ ratesStamp }}</span>
+</div>
+</div>
+
+<section style="background:#f7f4ee;border-bottom:1px solid rgba(23,33,30,.1)">
+<div style="max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr))">
+<div style="padding:26px 24px 26px 0"><div style="font:400 clamp(28px,3vw,36px)/1 'Instrument Serif',serif">98%</div><div style="font:400 12.5px/1.45 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:6px">approval rate on files we submit</div></div>
+<div style="padding:26px 24px;border-left:1px solid rgba(23,33,30,.1)"><div style="font:400 clamp(28px,3vw,36px)/1 'Instrument Serif',serif">14</div><div style="font:400 12.5px/1.45 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:6px">Spanish banks we hold terms with</div></div>
+<div style="padding:26px 0 26px 24px;border-left:1px solid rgba(23,33,30,.1)"><div style="font:400 clamp(28px,3vw,36px)/1 'Instrument Serif',serif">48h</div><div style="font:400 12.5px/1.45 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:6px">to two no-obligation offers</div></div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(48px,7vw,80px) clamp(18px,4vw,44px)">
+<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:baseline;justify-content:space-between;margin-bottom:30px">
+<h2 style="font:400 clamp(28px,3.6vw,42px)/1.1 'Instrument Serif',serif;margin:0">Three services, one file, one advisor</h2>
+<div onClick="{{ goAbout }}" style="font:600 13.5px 'Hanken Grotesk',sans-serif;color:oklch(0.45 0.06 185);cursor:pointer">How the concierge works →</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:20px">
+<div onClick="{{ goMortgages }}" style="border:1px solid rgba(23,33,30,.12);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 10px 30px rgba(23,33,30,.12);transform:translateY(-2px)">
+<div style="height:160px"><image-slot id="av-svc-1" src="https://images.unsplash.com/photo-1543783207-ec64e4d95325?fm=jpg&amp;q=70&amp;w=1200&amp;auto=format&amp;fit=crop" credit="Jorge Fernández Salas" credit-href="https://unsplash.com/photos/edificio-metropoli-on-gran-via-madrid-ChSZETOal-I" shape="rect" placeholder="Bank façade / architectural detail"></image-slot></div>
+<div style="padding:22px 24px 24px;display:flex;flex-direction:column;flex:1">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:oklch(0.58 0.11 48);margin-bottom:9px">01 — Finance</div>
+<div style="font:400 24px/1.2 'Instrument Serif',serif;margin-bottom:8px">Mortgages for non-residents</div>
+<p style="font:400 13.5px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0 0 16px;flex:1">Up to 70% LTV on holiday homes, fixed from 2.85%. We put your file in front of the banks most likely to say yes to a foreign income.</p>
+<div style="font:600 13px 'Hanken Grotesk',sans-serif;border-top:1px solid rgba(23,33,30,.12);padding-top:14px">See mortgage products →</div>
+</div>
+</div>
+<div onClick="{{ goProperty }}" style="border:1px solid rgba(23,33,30,.12);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 10px 30px rgba(23,33,30,.12);transform:translateY(-2px)">
+<div style="height:160px"><image-slot id="av-svc-2" src="https://images.unsplash.com/photo-1704824913008-f7f847deb821?fm=jpg&amp;q=70&amp;w=1200&amp;auto=format&amp;fit=crop" credit="Gary Ruiz" credit-href="https://unsplash.com/photos/a-courtyard-with-a-fountain-surrounded-by-pillars-nowbpvuHT9k" shape="rect" placeholder="Courtyard or terrace, cropped"></image-slot></div>
+<div style="padding:22px 24px 24px;display:flex;flex-direction:column;flex:1">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:oklch(0.58 0.11 48);margin-bottom:9px">02 — Property</div>
+<div style="font:400 24px/1.2 'Instrument Serif',serif;margin-bottom:8px">Search, viewings, negotiation</div>
+<p style="font:400 13.5px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0 0 16px;flex:1">A vetted shortlist across 9 regions, video viewings on your time zone, and a buyer's agent who works for you — not the seller.</p>
+<div style="font:600 13px 'Hanken Grotesk',sans-serif;border-top:1px solid rgba(23,33,30,.12);padding-top:14px">Browse properties →</div>
+</div>
+</div>
+<div onClick="{{ goHealth }}" style="border:1px solid rgba(23,33,30,.12);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 10px 30px rgba(23,33,30,.12);transform:translateY(-2px)">
+<div style="height:160px"><image-slot id="av-svc-3" src="https://images.unsplash.com/photo-1551076805-e1869033e561?fm=jpg&amp;q=70&amp;w=1200&amp;auto=format&amp;fit=crop" credit="Arseny Togulev" credit-href="https://unsplash.com/photos/black-and-white-hospital-bed-in-the-middle-of-interior-building-DE6rYp1nAho" shape="rect" placeholder="Clinic interior, calm and bright"></image-slot></div>
+<div style="padding:22px 24px 24px;display:flex;flex-direction:column;flex:1">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:oklch(0.58 0.11 48);margin-bottom:9px">03 — Health</div>
+<div style="font:400 24px/1.2 'Instrument Serif',serif;margin-bottom:8px">Private health cover</div>
+<p style="font:400 13.5px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0 0 16px;flex:1">Visa-compliant policies with no co-payment, English-speaking clinics, and cover that starts the day you land.</p>
+<div style="font:600 13px 'Hanken Grotesk',sans-serif;border-top:1px solid rgba(23,33,30,.12);padding-top:14px">Compare policies →</div>
+</div>
+</div>
+</div>
+</section>
+
+<section style="background:#f7f4ee;border-top:1px solid rgba(23,33,30,.1)">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(44px,6vw,68px) clamp(18px,4vw,44px);display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,56px)">
+<div style="flex:1 1 300px;max-width:380px">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:oklch(0.58 0.11 48);margin-bottom:12px">Spain vs. home</div>
+<h3 style="font:400 clamp(26px,3vw,34px)/1.12 'Instrument Serif',serif;margin:0 0 12px;text-wrap:pretty">It doesn't work like a US or Canadian mortgage</h3>
+<p style="font:400 14px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0 0 16px">Four differences that surprise almost every buyer. Read these before you make an offer.</p>
+<div onClick="{{ goMortgages }}" style="font:600 13.5px 'Hanken Grotesk',sans-serif;color:oklch(0.45 0.06 185);cursor:pointer">Full comparison table →</div>
+</div>
+<div style="flex:1 1 420px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:1px;background:rgba(23,33,30,.12);border:1px solid rgba(23,33,30,.12);border-radius:6px;overflow:hidden">
+<div style="background:#fff;padding:20px 22px"><div style="font:500 11px 'IBM Plex Mono',monospace;color:#6b7a74;margin-bottom:7px">DEPOSIT</div><div style="font:400 15.5px/1.5 'Hanken Grotesk',sans-serif">30–40% as a non-resident, vs. 5–20% at home.</div></div>
+<div style="background:#fff;padding:20px 22px"><div style="font:500 11px 'IBM Plex Mono',monospace;color:#6b7a74;margin-bottom:7px">CREDIT FILE</div><div style="font:400 15.5px/1.5 'Hanken Grotesk',sans-serif">Your FICO or Equifax score means nothing here. Income does.</div></div>
+<div style="background:#fff;padding:20px 22px"><div style="font:500 11px 'IBM Plex Mono',monospace;color:#6b7a74;margin-bottom:7px">COSTS</div><div style="font:400 15.5px/1.5 'Hanken Grotesk',sans-serif">Budget 10–13% on top of price for tax, notary and registry.</div></div>
+<div style="background:#fff;padding:20px 22px"><div style="font:500 11px 'IBM Plex Mono',monospace;color:#6b7a74;margin-bottom:7px">TIMELINE</div><div style="font:400 15.5px/1.5 'Hanken Grotesk',sans-serif">6–10 weeks from offer to keys, notary signing in person.</div></div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(44px,6vw,72px) clamp(18px,4vw,44px)">
+<h2 style="font:400 clamp(26px,3.4vw,38px)/1.1 'Instrument Serif',serif;margin:0 0 28px">Four steps, and we do three of them</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:18px">
+<div style="background:#f7f4ee;border-radius:6px;padding:24px;border-top:3px solid oklch(0.63 0.11 48)"><div style="font:500 11px 'IBM Plex Mono',monospace;color:#8a968f;margin-bottom:10px">STEP 01</div><div style="font:600 16px/1.3 'Hanken Grotesk',sans-serif;margin-bottom:7px">Instant quote</div><p style="font:400 13px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0">Two minutes online tells you what's realistic. No credit pull.</p></div>
+<div style="background:#f7f4ee;border-radius:6px;padding:24px;border-top:3px solid oklch(0.63 0.11 48)"><div style="font:500 11px 'IBM Plex Mono',monospace;color:#8a968f;margin-bottom:10px">STEP 02</div><div style="font:600 16px/1.3 'Hanken Grotesk',sans-serif;margin-bottom:7px">Pre-approval</div><p style="font:400 13px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0">Two written, no-obligation bank offers within 48 hours.</p></div>
+<div style="background:#f7f4ee;border-radius:6px;padding:24px;border-top:3px solid oklch(0.63 0.11 48)"><div style="font:500 11px 'IBM Plex Mono',monospace;color:#8a968f;margin-bottom:10px">STEP 03</div><div style="font:600 16px/1.3 'Hanken Grotesk',sans-serif;margin-bottom:7px">Offer &amp; valuation</div><p style="font:400 13px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0">We handle the bank, the valuer and the lawyer in parallel.</p></div>
+<div style="background:#17211e;border-radius:6px;padding:24px"><div style="font:500 11px 'IBM Plex Mono',monospace;color:oklch(0.85 0.09 48);margin-bottom:10px">STEP 04</div><div style="font:600 16px/1.3 'Hanken Grotesk',sans-serif;color:#f7f4ee;margin-bottom:7px">Notary &amp; keys</div><p style="font:400 13px/1.65 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.75);margin:0">One trip, one signing. Health policy active the same week.</p></div>
+</div>
+</section>
+
+<section style="border-top:1px solid rgba(23,33,30,.1)">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(44px,6vw,68px) clamp(18px,4vw,44px);display:flex;flex-wrap:wrap;gap:clamp(26px,4vw,48px);align-items:center">
+<div style="flex:1 1 380px"><div style="font:400 clamp(20px,2.3vw,26px)/1.45 'Instrument Serif',serif;text-wrap:pretty">"We were in Vancouver, the house was in Dénia, and the bank wanted documents we'd never heard of. Avidoro translated all of it — literally and otherwise."</div><div style="font:500 13px 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:16px">Marie &amp; David L. · Vancouver → Dénia · completed May 2026</div></div>
+<div style="width:200px;height:200px;flex:none"><image-slot id="av-testimonial" src="https://images.unsplash.com/photo-1762445422858-49a118151881?fm=jpg&amp;q=70&amp;w=600&amp;auto=format&amp;fit=crop" credit="Jackie Best" credit-href="https://unsplash.com/photos/a-smiling-couple-wearing-glasses-outdoors-qJZNZdEwuXw" shape="rounded" radius="6" placeholder="Client portrait (optional)"></image-slot></div>
+</div>
+</section>
+
+<section style="background:#f7f4ee;border-top:1px solid rgba(23,33,30,.1)">
+<div style="max-width:1240px;margin:0 auto;padding:36px clamp(18px,4vw,44px) 44px">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#8a968f;margin-bottom:18px">We hold terms with</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(130px,100%),1fr));gap:14px">
+<div style="height:56px;border:1px solid rgba(23,33,30,.12);border-radius:4px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><span style="font:600 16px/1 'Hanken Grotesk',sans-serif;letter-spacing:-.01em;color:#2c3a36">Santander</span><span style="font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#8a968f">Bank</span></div>
+<div style="height:56px;border:1px solid rgba(23,33,30,.12);border-radius:4px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><span style="font:600 16px/1 'Hanken Grotesk',sans-serif;letter-spacing:-.01em;color:#2c3a36">BBVA</span><span style="font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#8a968f">Bank</span></div>
+<div style="height:56px;border:1px solid rgba(23,33,30,.12);border-radius:4px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><span style="font:600 16px/1 'Hanken Grotesk',sans-serif;letter-spacing:-.01em;color:#2c3a36">CaixaBank</span><span style="font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#8a968f">Bank</span></div>
+<div style="height:56px;border:1px solid rgba(23,33,30,.12);border-radius:4px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><span style="font:600 16px/1 'Hanken Grotesk',sans-serif;letter-spacing:-.01em;color:#2c3a36">Sabadell</span><span style="font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#8a968f">Bank</span></div>
+<div style="height:56px;border:1px solid rgba(23,33,30,.12);border-radius:4px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><span style="font:600 16px/1 'Hanken Grotesk',sans-serif;letter-spacing:-.01em;color:#2c3a36">Sanitas</span><span style="font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#8a968f">Insurer</span></div>
+<div style="height:56px;border:1px solid rgba(23,33,30,.12);border-radius:4px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px"><span style="font:600 16px/1 'Hanken Grotesk',sans-serif;letter-spacing:-.01em;color:#2c3a36">Adeslas</span><span style="font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#8a968f">Insurer</span></div>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isMortgages }}">
+<section style="background:#f7f4ee;border-bottom:1px solid rgba(23,33,30,.1)">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(32px,5vw,52px) clamp(18px,4vw,44px) clamp(32px,4vw,44px);display:flex;flex-wrap:wrap;gap:clamp(26px,4vw,56px);align-items:flex-end">
+<div style="flex:1 1 420px">
+<div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8a968f;margin-bottom:18px">Home / Mortgages</div>
+<h1 style="font:400 clamp(32px,4.6vw,54px)/1.05 'Instrument Serif',serif;margin:0 0 16px;max-width:640px;text-wrap:pretty">A full range of Spanish mortgage solutions</h1>
+<p style="font:400 clamp(15px,1.4vw,16.5px)/1.65 'Hanken Grotesk',sans-serif;color:#4b5954;margin:0;max-width:560px">We cover standard non-resident purchases as well as the specialist cases most brokers turn away — construction, commercial, and bridging above €500,000.</p>
+</div>
+<div style="flex:0 1 280px;min-width:250px;background:#fff;border:1px solid rgba(23,33,30,.12);border-radius:6px;padding:22px 24px">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8a968f;margin-bottom:12px">TODAY</div>
+<div style="display:flex;justify-content:space-between;font:400 13.5px 'Hanken Grotesk',sans-serif;padding-bottom:9px;border-bottom:1px solid rgba(23,33,30,.1)"><span>Best fixed, 20y</span><span style="font-family:'IBM Plex Mono',monospace">2.85%</span></div>
+<div style="display:flex;justify-content:space-between;font:400 13.5px 'Hanken Grotesk',sans-serif;padding:9px 0;border-bottom:1px solid rgba(23,33,30,.1)"><span>Best variable</span><span style="font-family:'IBM Plex Mono',monospace">Eur + 0.99%</span></div>
+<div style="display:flex;justify-content:space-between;font:400 13.5px 'Hanken Grotesk',sans-serif;padding-top:9px"><span>Euribor 12M</span><span style="font-family:'IBM Plex Mono',monospace">2.34%</span></div>
+</div>
+</div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,56px) clamp(18px,4vw,44px)">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:1px;background:rgba(23,33,30,.12);border:1px solid rgba(23,33,30,.12);border-radius:6px;overflow:hidden">
+<div style="background:#fff;padding:26px"><div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:oklch(0.58 0.11 48);margin-bottom:10px">70% LTV</div><div style="font:400 22px/1.2 'Instrument Serif',serif;margin-bottom:9px">Holiday home</div><p style="font:400 13.5px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0">For non-resident private buyers. Borrow up to 70% of purchase price or valuation, whichever is lower.</p></div>
+<div style="background:#fff;padding:26px"><div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:oklch(0.58 0.11 48);margin-bottom:10px">80% LTV</div><div style="font:400 22px/1.2 'Instrument Serif',serif;margin-bottom:9px">Primary residence</div><p style="font:400 13.5px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0">If you'll pay income tax in Spain. Rates from Euribor + 0.99% or fixed from 2.45%.</p></div>
+<div style="background:#fff;padding:26px"><div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:oklch(0.58 0.11 48);margin-bottom:10px">50% + 70%</div><div style="font:400 22px/1.2 'Instrument Serif',serif;margin-bottom:9px">Construction</div><p style="font:400 13.5px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0">Build from the ground up or renovate: 50% of plot cost plus 70% of the works.</p></div>
+<div style="background:#fff;padding:26px"><div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:oklch(0.58 0.11 48);margin-bottom:10px">50–60% LTV</div><div style="font:400 22px/1.2 'Instrument Serif',serif;margin-bottom:9px">Investment</div><p style="font:400 13.5px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0">Planning to rent it out? Banks lend less, so we structure the file around projected yield.</p></div>
+<div style="background:#fff;padding:26px"><div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:oklch(0.58 0.11 48);margin-bottom:10px">50% LTV</div><div style="font:400 22px/1.2 'Instrument Serif',serif;margin-bottom:9px">Commercial</div><p style="font:400 13.5px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0">Including purchases through a company. Rates from Euribor + 2.1%.</p></div>
+<div style="background:#17211e;padding:26px"><div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:oklch(0.85 0.09 48);margin-bottom:10px">65% LTV · 36 MO</div><div style="font:400 22px/1.2 'Instrument Serif',serif;color:#f7f4ee;margin-bottom:9px">Bridging finance</div><p style="font:400 13.5px/1.65 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.75);margin:0">From €500,000, terms to 36 months, from 0.70% per month. Most sectors considered.</p></div>
+</div>
+</section>
+<section style="background:#f7f4ee;border-top:1px solid rgba(23,33,30,.1)">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,56px) clamp(18px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:clamp(28px,4vw,48px)">
+<div>
+<h2 style="font:400 clamp(24px,2.8vw,32px)/1.12 'Instrument Serif',serif;margin:0 0 18px">Spain vs. a mortgage at home</h2>
+<div style="border:1px solid rgba(23,33,30,.14);border-radius:6px;overflow:hidden;background:#fff">
+<div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#5c6a65;padding:12px 18px;background:#efeae1"><span></span><span>SPAIN</span><span>US / CANADA</span></div>
+<div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 18px;font:400 13.5px 'Hanken Grotesk',sans-serif;border-top:1px solid rgba(23,33,30,.08)"><span style="color:#6b7a74">Deposit</span><span>30–40%</span><span>5–20%</span></div>
+<div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 18px;font:400 13.5px 'Hanken Grotesk',sans-serif;border-top:1px solid rgba(23,33,30,.08)"><span style="color:#6b7a74">Credit score used</span><span>No</span><span>Yes</span></div>
+<div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 18px;font:400 13.5px 'Hanken Grotesk',sans-serif;border-top:1px solid rgba(23,33,30,.08)"><span style="color:#6b7a74">Purchase costs</span><span>10–13%</span><span>2–5%</span></div>
+<div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 18px;font:400 13.5px 'Hanken Grotesk',sans-serif;border-top:1px solid rgba(23,33,30,.08)"><span style="color:#6b7a74">Signing</span><span>Notary, in person</span><span>Often remote</span></div>
+<div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 18px;font:400 13.5px 'Hanken Grotesk',sans-serif;border-top:1px solid rgba(23,33,30,.08)"><span style="color:#6b7a74">Life cover</span><span>Usually required</span><span>Optional</span></div>
+</div>
+</div>
+<div>
+<h2 style="font:400 clamp(24px,2.8vw,32px)/1.12 'Instrument Serif',serif;margin:0 0 18px">What the bank will ask you for</h2>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="background:#fff;border:1px solid rgba(23,33,30,.12);border-radius:5px;padding:15px 18px;font:400 14px/1.5 'Hanken Grotesk',sans-serif">Last 2 years of tax returns (T1 / 1040) plus notice of assessment</div>
+<div style="background:#fff;border:1px solid rgba(23,33,30,.12);border-radius:5px;padding:15px 18px;font:400 14px/1.5 'Hanken Grotesk',sans-serif">3–6 months of bank statements and current mortgage or debt statements</div>
+<div style="background:#fff;border:1px solid rgba(23,33,30,.12);border-radius:5px;padding:15px 18px;font:400 14px/1.5 'Hanken Grotesk',sans-serif">NIE number — we arrange it if you don't have one yet</div>
+<div style="background:#fff;border:1px solid rgba(23,33,30,.12);border-radius:5px;padding:15px 18px;font:400 14px/1.5 'Hanken Grotesk',sans-serif">Employment letter or, if self-employed, two years of company accounts</div>
+</div>
+<div style="margin-top:18px;background:oklch(0.95 0.02 48);border:1px solid oklch(0.85 0.05 48);border-radius:5px;padding:16px 18px;font:400 13.5px/1.65 'Hanken Grotesk',sans-serif;color:#5a3826">Documents in English are fine. We handle sworn translation where a bank insists on it.</div>
+</div>
+</div>
+</section>
+<section style="background:#17211e">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(36px,4vw,48px) clamp(18px,4vw,44px);display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+<div><div style="font:400 clamp(24px,2.8vw,32px)/1.2 'Instrument Serif',serif;color:#f7f4ee;margin-bottom:8px">Two written offers in 48 hours</div><div style="font:400 14.5px/1.6 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.72)">No obligation, no fee until completion, money-back guarantee on the terms we promise.</div></div>
+<div onClick="{{ goQuote }}" style="background:oklch(0.63 0.11 48);color:#fff;font:600 14.5px 'Hanken Grotesk',sans-serif;padding:16px 28px;border-radius:4px;cursor:pointer;flex:none" style-hover="background:oklch(0.56 0.12 48)">Start pre-approval</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isProperty }}">
+<section style="background:#f7f4ee;border-bottom:1px solid rgba(23,33,30,.12)">
+<div style="max-width:1240px;margin:0 auto;padding:20px clamp(18px,4vw,44px);display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+<select style="flex:1 1 190px;background:#fff;border:1px solid rgba(23,33,30,.18);border-radius:4px;padding:11px 12px;font-size:13.5px;color:#17211e"><option>Costa Blanca · Alicante</option><option>Costa del Sol · Málaga</option><option>Barcelona &amp; Maresme</option><option>Balearic Islands</option></select>
+<select style="flex:1 1 150px;background:#fff;border:1px solid rgba(23,33,30,.18);border-radius:4px;padding:11px 12px;font-size:13.5px;color:#17211e"><option>Any budget</option><option>Up to 600k</option><option>600k – 1.1M</option><option>1.1M +</option></select>
+<select style="flex:0 1 120px;background:#fff;border:1px solid rgba(23,33,30,.18);border-radius:4px;padding:11px 12px;font-size:13.5px;color:#17211e"><option>3+ beds</option><option>2+ beds</option><option>4+ beds</option></select>
+<div onClick="{{ toggleReady }}" style="background:{{ readyBg }};border:1px solid {{ readyBorder }};color:{{ readyFg }};border-radius:4px;padding:11px 14px;font:600 12.5px 'Hanken Grotesk',sans-serif;cursor:pointer;white-space:nowrap">{{ readyLabel }}</div>
+<div style="background:#17211e;color:#f7f4ee;border-radius:4px;padding:12px 22px;font:600 13px 'Hanken Grotesk',sans-serif;cursor:pointer" style-hover="background:#28352f">Search</div>
+</div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:24px clamp(18px,4vw,44px) clamp(40px,5vw,56px)">
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;margin-bottom:18px">
+<div><span style="font:600 16px 'Hanken Grotesk',sans-serif">{{ resultCount }} properties</span><span style="font:400 13.5px 'Hanken Grotesk',sans-serif;color:#6b7a74"> · {{ resultNote }}</span></div>
+<span style="font:500 12.5px 'IBM Plex Mono',monospace;color:#6b7a74">SORT: MONTHLY COST ↑</span>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px" data-screen-label="property">
+<div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+<sc-for list="{{ listings }}" as="p" hint-placeholder-count="3">
+<div style="display:flex;flex-wrap:wrap;gap:18px;border:1px solid rgba(23,33,30,.12);border-radius:6px;padding:14px;transition:box-shadow .18s" style-hover="box-shadow:0 8px 26px rgba(23,33,30,.1)">
+<div style="width:216px;height:152px;flex:none"><image-slot id="{{ p.slot }}" shape="rounded" radius="4" placeholder="{{ p.slotLabel }}"></image-slot></div>
+<div style="flex:1 1 300px;min-width:0">
+<div style="display:flex;gap:12px;justify-content:space-between;align-items:flex-start">
+<div><div style="font:400 22px/1.2 'Instrument Serif',serif">{{ p.title }}</div><div style="font:400 12.5px 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:4px">{{ p.specs }}</div></div>
+<div style="background:{{ p.badgeBg }};color:{{ p.badgeFg }};font:600 10.5px 'IBM Plex Mono',monospace;padding:5px 8px;border-radius:3px;white-space:nowrap">{{ p.badge }}</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:16px 26px;margin-top:14px;padding-top:13px;border-top:1px solid rgba(23,33,30,.1);align-items:flex-end">
+<div><div style="font:400 11px 'IBM Plex Mono',monospace;color:#8a968f">PRICE</div><div style="font:600 17px 'Hanken Grotesk',sans-serif;margin-top:3px">{{ p.price }}</div><div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8a968f">{{ p.priceEur }}</div></div>
+<div><div style="font:400 11px 'IBM Plex Mono',monospace;color:#8a968f">DEPOSIT NEEDED</div><div style="font:600 17px 'Hanken Grotesk',sans-serif;margin-top:3px">{{ p.deposit }}</div><div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8a968f">incl. costs</div></div>
+<div><div style="font:400 11px 'IBM Plex Mono',monospace;color:#8a968f">EST. MONTHLY</div><div style="font:600 17px 'Hanken Grotesk',sans-serif;color:oklch(0.5 0.11 48);margin-top:3px">{{ p.monthly }}</div><div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8a968f">2.85% fixed, 25y</div></div>
+<div style="display:flex;gap:8px;margin-left:auto"><div style="border:1px solid rgba(23,33,30,.2);border-radius:4px;padding:9px 14px;font:600 12.5px 'Hanken Grotesk',sans-serif;cursor:pointer" style-hover="border-color:#17211e">Save</div><div style="background:#17211e;color:#f7f4ee;border-radius:4px;padding:9px 14px;font:600 12.5px 'Hanken Grotesk',sans-serif;cursor:pointer" style-hover="background:#28352f">Video viewing</div></div>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="position:relative;min-height:420px;border-radius:6px;overflow:hidden;background:#e2e8e2">
+<image-slot id="av-map" shape="rect" placeholder="Map — Costa Blanca with price pins"></image-slot>
+<div style="position:absolute;top:18px;left:18px;right:18px;background:#fff;border-radius:6px;padding:16px 18px;box-shadow:0 4px 18px rgba(23,33,30,.16);pointer-events:none">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:oklch(0.58 0.11 48);margin-bottom:8px">YOUR BUDGET, IN CONTEXT</div>
+<div style="font:400 14px/1.6 'Hanken Grotesk',sans-serif">With your pre-approval, <strong>61 of these 148</strong> are within reach — filtered on real bank criteria, not list price.</div>
+</div>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isHealth }}">
+<section style="background:oklch(0.96 0.015 185)">
+<div style="max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:clamp(24px,4vw,48px);align-items:center">
+<div style="padding:clamp(40px,5vw,60px) 0">
+<div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8a968f;margin-bottom:18px">Home / Health cover</div>
+<h1 style="font:400 clamp(30px,4.2vw,50px)/1.07 'Instrument Serif',serif;margin:0 0 16px;text-wrap:pretty">Cover that satisfies the visa office — and a doctor who speaks English</h1>
+<p style="font:400 clamp(15px,1.4vw,16.5px)/1.65 'Hanken Grotesk',sans-serif;color:#4b5954;margin:0 0 26px;max-width:520px">Spanish residency requires full private cover with no co-payment and no waiting periods. We place policies with the major insurers and stay on the file at renewal.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px"><div onClick="{{ goQuote }}" style="background:#17211e;color:#f7f4ee;font:600 14px 'Hanken Grotesk',sans-serif;padding:14px 24px;border-radius:4px;cursor:pointer" style-hover="background:#28352f">Compare policies</div><div onClick="{{ goContact }}" style="border:1px solid rgba(23,33,30,.25);font:600 14px 'Hanken Grotesk',sans-serif;padding:14px 24px;border-radius:4px;cursor:pointer" style-hover="border-color:#17211e">Is my visa covered?</div></div>
+</div>
+<div style="min-height:340px;height:100%"><image-slot id="av-health-hero" shape="rect" placeholder="Clinic corridor or consulting room"></image-slot></div>
+</div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,56px) clamp(18px,4vw,44px)">
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;margin-bottom:24px"><h2 style="font:400 clamp(26px,3vw,34px)/1.1 'Instrument Serif',serif;margin:0">Three tiers we place most often</h2><span style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8a968f">PER PERSON / MONTH · AGE 45</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(270px,100%),1fr));gap:18px">
+<div style="border:1px solid rgba(23,33,30,.14);border-radius:6px;padding:26px 24px">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8a968f;margin-bottom:12px">ESSENTIAL</div>
+<div style="font:400 40px/1 'Instrument Serif',serif">{{ tier1 }}<span style="font-size:16px;color:#6b7a74"> / mo</span></div>
+<div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8a968f;margin:6px 0 18px">{{ tier1Eur }} · no co-payment</div>
+<div style="display:flex;flex-direction:column;gap:9px;font:400 13.5px/1.5 'Hanken Grotesk',sans-serif;color:#3e4b46;border-top:1px solid rgba(23,33,30,.1);padding-top:16px"><div>Visa &amp; residency compliant</div><div>GP, specialists, diagnostics</div><div>Hospitalisation &amp; surgery</div><div style="color:#a3aeaa">No dental</div><div style="color:#a3aeaa">No cover outside Spain</div></div>
+</div>
+<div style="border:1.5px solid oklch(0.63 0.11 48);border-radius:6px;padding:26px 24px;position:relative">
+<div style="position:absolute;top:-11px;left:24px;background:oklch(0.63 0.11 48);color:#fff;font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.1em;padding:4px 9px;border-radius:3px">MOST CHOSEN</div>
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8a968f;margin-bottom:12px">COMPLETE</div>
+<div style="font:400 40px/1 'Instrument Serif',serif">{{ tier2 }}<span style="font-size:16px;color:#6b7a74"> / mo</span></div>
+<div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8a968f;margin:6px 0 18px">{{ tier2Eur }} · no co-payment</div>
+<div style="display:flex;flex-direction:column;gap:9px;font:400 13.5px/1.5 'Hanken Grotesk',sans-serif;color:#3e4b46;border-top:1px solid rgba(23,33,30,.1);padding-top:16px"><div>Everything in Essential</div><div>Dental &amp; optical allowance</div><div>Travel cover, 90 days abroad</div><div>English-speaking clinic network</div><div>Second-opinion service</div></div>
+</div>
+<div style="border-radius:6px;padding:26px 24px;background:#17211e">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:oklch(0.85 0.09 48);margin-bottom:12px">PREMIER</div>
+<div style="font:400 40px/1 'Instrument Serif',serif;color:#f7f4ee">{{ tier3 }}<span style="font-size:16px;color:rgba(247,244,238,.65)"> / mo</span></div>
+<div style="font:400 11.5px 'IBM Plex Mono',monospace;color:rgba(247,244,238,.6);margin:6px 0 18px">{{ tier3Eur }} · worldwide</div>
+<div style="display:flex;flex-direction:column;gap:9px;font:400 13.5px/1.5 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.85);border-top:1px solid rgba(247,244,238,.16);padding-top:16px"><div>Everything in Complete</div><div>Worldwide incl. US &amp; Canada</div><div>Private room, choice of surgeon</div><div>Chronic condition cover</div><div>Dedicated case manager</div></div>
+</div>
+</div>
+</section>
+<section style="background:#f7f4ee;border-top:1px solid rgba(23,33,30,.1)">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(36px,5vw,48px) clamp(18px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:clamp(26px,4vw,44px)">
+<div>
+<h3 style="font:400 clamp(22px,2.5vw,28px)/1.15 'Instrument Serif',serif;margin:0 0 16px">Which visa needs what</h3>
+<div style="background:#fff;border:1px solid rgba(23,33,30,.12);border-radius:6px;overflow:hidden">
+<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;padding:14px 18px;font:400 13.5px 'Hanken Grotesk',sans-serif;border-bottom:1px solid rgba(23,33,30,.08)"><span>Non-lucrative residence</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.45 0.06 185)">FULL, NO CO-PAY</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;padding:14px 18px;font:400 13.5px 'Hanken Grotesk',sans-serif;border-bottom:1px solid rgba(23,33,30,.08)"><span>Digital nomad visa</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.45 0.06 185)">FULL, NO CO-PAY</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;padding:14px 18px;font:400 13.5px 'Hanken Grotesk',sans-serif;border-bottom:1px solid rgba(23,33,30,.08)"><span>Golden visa (property)</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.45 0.06 185)">FULL, NO CO-PAY</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;padding:14px 18px;font:400 13.5px 'Hanken Grotesk',sans-serif"><span>Holiday-home owner, under 90 days</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a968f">TRAVEL POLICY OK</span></div>
+</div>
+</div>
+<div>
+<h3 style="font:400 clamp(22px,2.5vw,28px)/1.15 'Instrument Serif',serif;margin:0 0 16px">Bundled with your mortgage</h3>
+<div style="background:#fff;border:1px solid rgba(23,33,30,.12);border-radius:6px;padding:24px">
+<p style="font:400 14.5px/1.7 'Hanken Grotesk',sans-serif;color:#3e4b46;margin:0 0 16px">Most Spanish banks require life cover, and many discount your rate if home and life policies sit with them. We model that trade-off rather than assuming it.</p>
+<div style="display:flex;flex-wrap:wrap;gap:14px;border-top:1px solid rgba(23,33,30,.1);padding-top:16px">
+<div style="flex:1 1 120px"><div style="font:400 11px 'IBM Plex Mono',monospace;color:#8a968f">WITH BANK POLICIES</div><div style="font:600 20px 'Hanken Grotesk',sans-serif;margin-top:4px">2.85%</div></div>
+<div style="flex:1 1 120px"><div style="font:400 11px 'IBM Plex Mono',monospace;color:#8a968f">WITHOUT</div><div style="font:600 20px 'Hanken Grotesk',sans-serif;margin-top:4px">3.20%</div></div>
+<div style="flex:1 1 120px"><div style="font:400 11px 'IBM Plex Mono',monospace;color:#8a968f">NET OVER 25Y</div><div style="font:600 20px 'Hanken Grotesk',sans-serif;color:oklch(0.5 0.11 48);margin-top:4px">{{ bundleSaving }}</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isQuote }}">
+<section style="background:#f7f4ee;min-height:70vh">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(28px,4vw,44px) clamp(18px,4vw,44px) clamp(40px,5vw,60px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:clamp(24px,3vw,34px);align-items:start">
+<div style="min-width:0">
+<div style="display:flex;gap:6px;margin-bottom:30px">
+<div style="height:3px;flex:1;border-radius:2px;background:{{ s1 }}"></div><div style="height:3px;flex:1;border-radius:2px;background:{{ s2 }}"></div><div style="height:3px;flex:1;border-radius:2px;background:{{ s3 }}"></div><div style="height:3px;flex:1;border-radius:2px;background:{{ s4 }}"></div>
+</div>
+<div style="font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:oklch(0.45 0.06 185);margin-bottom:14px">{{ stepEyebrow }}</div>
+<h2 style="font:400 clamp(28px,4vw,44px)/1.08 'Instrument Serif',serif;margin:0 0 12px;text-wrap:pretty">{{ stepTitle }}</h2>
+<p style="font:400 15.5px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0 0 28px;max-width:480px">{{ stepBody }}</p>
+
+<sc-if value="{{ atStep1 }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px">
+<div onClick="{{ pickCanada }}" style="border:1px solid {{ caBorder }};background:{{ caBg }};color:{{ caFg }};border-radius:22px;padding:10px 18px;font:500 13.5px 'Hanken Grotesk',sans-serif;cursor:pointer">Canada</div>
+<div onClick="{{ pickUs }}" style="border:1px solid {{ usBorder }};background:{{ usBg }};color:{{ usFg }};border-radius:22px;padding:10px 18px;font:500 13.5px 'Hanken Grotesk',sans-serif;cursor:pointer">United States</div>
+<div onClick="{{ pickSpain }}" style="border:1px solid {{ esrBorder }};background:{{ esrBg }};color:{{ esrFg }};border-radius:22px;padding:10px 18px;font:500 13.5px 'Hanken Grotesk',sans-serif;cursor:pointer">Already in Spain</div>
+</div>
+</sc-if>
+<sc-if value="{{ atStep2 }}">
+<div style="background:#fff;border:1px solid rgba(23,33,30,.18);border-radius:6px;padding:20px 22px;max-width:440px;margin-bottom:28px">
+<div style="font:400 11px 'IBM Plex Mono',monospace;color:#8a968f;margin-bottom:8px">PROPERTY PRICE</div>
+<div style="font:600 clamp(26px,3vw,34px)/1 'Hanken Grotesk',sans-serif">{{ priceLabel }}</div>
+<div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8a968f;margin-top:6px">{{ priceEurLabel }}</div>
+<input type="range" min="150000" max="3000000" step="10000" value="{{ priceEur }}" onChange="{{ setPrice }}" style="width:100%;margin-top:20px">
+</div>
+</sc-if>
+<sc-if value="{{ atStep3 }}">
+<div style="background:#fff;border:1px solid rgba(23,33,30,.18);border-radius:6px;padding:20px 22px;max-width:440px;margin-bottom:16px">
+<div style="font:400 11px 'IBM Plex Mono',monospace;color:#8a968f;margin-bottom:8px">ANNUAL HOUSEHOLD INCOME, BEFORE TAX</div>
+<div style="font:600 clamp(26px,3vw,34px)/1 'Hanken Grotesk',sans-serif">{{ incomeLabel }}</div>
+<input type="range" min="40000" max="800000" step="5000" value="{{ incomeEur }}" onChange="{{ setIncome }}" style="width:100%;margin-top:20px">
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px">
+<div onClick="{{ pickSalaried }}" style="border:1px solid {{ salBorder }};background:{{ salBg }};color:{{ salFg }};border-radius:22px;padding:9px 16px;font:500 12.5px 'Hanken Grotesk',sans-serif;cursor:pointer">Salaried</div>
+<div onClick="{{ pickSelf }}" style="border:1px solid {{ selfBorder }};background:{{ selfBg }};color:{{ selfFg }};border-radius:22px;padding:9px 16px;font:500 12.5px 'Hanken Grotesk',sans-serif;cursor:pointer">Self-employed</div>
+<div onClick="{{ pickRetired }}" style="border:1px solid {{ retBorder }};background:{{ retBg }};color:{{ retFg }};border-radius:22px;padding:9px 16px;font:500 12.5px 'Hanken Grotesk',sans-serif;cursor:pointer">Retired / pension</div>
+</div>
+</sc-if>
+<sc-if value="{{ atStep4 }}">
+<div style="background:#fff;border:1px solid rgba(23,33,30,.14);border-radius:6px;padding:24px;max-width:460px;margin-bottom:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<input placeholder="Full name" style="border:1px solid rgba(23,33,30,.18);border-radius:4px;padding:12px 13px;font-size:14px">
+<input placeholder="Email" style="border:1px solid rgba(23,33,30,.18);border-radius:4px;padding:12px 13px;font-size:14px">
+<input placeholder="Phone (with country code)" style="border:1px solid rgba(23,33,30,.18);border-radius:4px;padding:12px 13px;font-size:14px">
+<select style="border:1px solid rgba(23,33,30,.18);border-radius:4px;padding:12px 13px;font-size:14px;color:#17211e;background:#fff"><option>Best time to call — mornings ET</option><option>Best time to call — afternoons ET</option><option>Best time to call — mornings PT</option></select>
+</div>
+<p style="font:400 11.5px/1.6 'IBM Plex Mono',monospace;color:#8a968f;margin:14px 0 0">No credit check is run. We call once, and only when you ask us to.</p>
+</div>
+</sc-if>
+
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+<sc-if value="{{ canGoBack }}"><div onClick="{{ prevStep }}" style="border:1px solid rgba(23,33,30,.22);font:600 14px 'Hanken Grotesk',sans-serif;padding:14px 22px;border-radius:4px;cursor:pointer" style-hover="border-color:#17211e">Back</div></sc-if>
+<div onClick="{{ nextStep }}" style="background:oklch(0.63 0.11 48);color:#fff;font:600 15px 'Hanken Grotesk',sans-serif;padding:15px 30px;border-radius:4px;cursor:pointer" style-hover="background:oklch(0.56 0.12 48)">{{ nextLabel }}</div>
+<span style="font:400 13px 'Hanken Grotesk',sans-serif;color:#8a968f">{{ stepCounter }}</span>
+</div>
+</div>
+
+<div style="background:#17211e;border-radius:6px;padding:clamp(28px,3vw,40px);color:#f7f4ee;position:sticky;top:100px">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:oklch(0.85 0.09 48);margin-bottom:20px">UPDATING AS YOU ANSWER</div>
+<div style="font:400 13px 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.65)">Indicative borrowing</div>
+<div style="font:400 clamp(38px,4.4vw,54px)/1 'Instrument Serif',serif;margin:8px 0 4px">{{ loanLabel }}</div>
+<div style="font:400 12.5px 'IBM Plex Mono',monospace;color:rgba(247,244,238,.6);margin-bottom:26px">{{ loanEurLabel }} · {{ ltvLabel }} LTV MAX</div>
+<div style="display:flex;flex-direction:column;gap:14px;border-top:1px solid rgba(247,244,238,.16);padding-top:22px;font:400 13.5px 'Hanken Grotesk',sans-serif">
+<div style="display:flex;gap:12px;justify-content:space-between"><span style="color:rgba(247,244,238,.68)">Est. monthly payment</span><span style="font-family:'IBM Plex Mono',monospace">{{ monthlyLabel }}</span></div>
+<div style="display:flex;gap:12px;justify-content:space-between"><span style="color:rgba(247,244,238,.68)">Deposit you'd need</span><span style="font-family:'IBM Plex Mono',monospace">{{ depositLabel }}</span></div>
+<div style="display:flex;gap:12px;justify-content:space-between"><span style="color:rgba(247,244,238,.68)">Purchase costs (11%)</span><span style="font-family:'IBM Plex Mono',monospace">{{ costsLabel }}</span></div>
+<div style="display:flex;gap:12px;justify-content:space-between"><span style="color:rgba(247,244,238,.68)">Debt-to-income</span><span style="font-family:'IBM Plex Mono',monospace;color:{{ dtiColor }}">{{ dtiLabel }}</span></div>
+</div>
+<div style="margin-top:24px;background:rgba(247,244,238,.07);border-radius:6px;padding:18px">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:oklch(0.85 0.09 48);margin-bottom:8px">WHY THIS NUMBER</div>
+<p style="font:400 13px/1.65 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.8);margin:0">{{ whyNote }}</p>
+</div>
+<div style="margin-top:22px;display:flex;gap:12px;align-items:center;border-top:1px solid rgba(247,244,238,.16);padding-top:20px">
+<div style="width:44px;height:44px;flex:none"><image-slot id="av-advisor-q" shape="circle" placeholder="Advisor"></image-slot></div>
+<div><div style="font:600 13px 'Hanken Grotesk',sans-serif">Elena Ruiz · your advisor</div><div style="font:400 12px 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.65)">9:00–18:00 CET · EN or ES</div></div>
+</div>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isAbout }}">
+<section style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,60px) clamp(18px,4vw,44px) clamp(32px,4vw,44px)">
+<h1 style="font:400 clamp(30px,4.2vw,48px)/1.06 'Instrument Serif',serif;margin:0 0 18px;max-width:640px;text-wrap:pretty">Twenty years of arguing with Spanish banks on behalf of foreign buyers</h1>
+<p style="font:400 clamp(15px,1.4vw,16.5px)/1.7 'Hanken Grotesk',sans-serif;color:#4b5954;margin:0 0 12px;max-width:660px">Avidoro is independent. We are not owned by a bank, an insurer or an estate agency, and we are paid the same whichever lender you choose — which is the only reason our advice is worth anything.</p>
+<p style="font:400 clamp(15px,1.4vw,16.5px)/1.7 'Hanken Grotesk',sans-serif;color:#4b5954;margin:0;max-width:660px">Our advisors sit in Barcelona, Marbella and Valencia, and half the team has bought property abroad themselves. Everything is handled in English or Spanish, on your hours.</p>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,44px) clamp(40px,5vw,52px)">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:20px">
+<div><div style="height:250px"><image-slot id="av-team-1" shape="rounded" radius="6" placeholder="Advisor portrait"></image-slot></div><div style="font:600 15px 'Hanken Grotesk',sans-serif;margin-top:12px">Elena Ruiz</div><div style="font:400 12.5px/1.5 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:3px">Director, mortgages · Barcelona · EN / ES / CA</div></div>
+<div><div style="height:250px"><image-slot id="av-team-2" shape="rounded" radius="6" placeholder="Advisor portrait"></image-slot></div><div style="font:600 15px 'Hanken Grotesk',sans-serif;margin-top:12px">Tom Bergeron</div><div style="font:400 12.5px/1.5 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:3px">North America desk · Marbella · EN / FR</div></div>
+<div><div style="height:250px"><image-slot id="av-team-3" shape="rounded" radius="6" placeholder="Advisor portrait"></image-slot></div><div style="font:600 15px 'Hanken Grotesk',sans-serif;margin-top:12px">Marta Ibáñez</div><div style="font:400 12.5px/1.5 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:3px">Insurance &amp; residency · Valencia · ES / EN</div></div>
+<div><div style="height:250px"><image-slot id="av-team-4" shape="rounded" radius="6" placeholder="Advisor portrait"></image-slot></div><div style="font:600 15px 'Hanken Grotesk',sans-serif;margin-top:12px">Javier Mor</div><div style="font:400 12.5px/1.5 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:3px">Legal &amp; tax liaison · Barcelona · ES / EN</div></div>
+</div>
+</section>
+<section style="background:#17211e">
+<div style="max-width:1240px;margin:0 auto;padding:36px clamp(18px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(140px,100%),1fr));gap:20px">
+<div><div style="font:400 30px/1 'Instrument Serif',serif;color:#f7f4ee">2006</div><div style="font:400 12px/1.4 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.65);margin-top:6px">founded</div></div>
+<div><div style="font:400 30px/1 'Instrument Serif',serif;color:#f7f4ee">3,400+</div><div style="font:400 12px/1.4 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.65);margin-top:6px">files completed</div></div>
+<div><div style="font:400 30px/1 'Instrument Serif',serif;color:#f7f4ee">9</div><div style="font:400 12px/1.4 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.65);margin-top:6px">regions covered</div></div>
+<div><div style="font:400 30px/1 'Instrument Serif',serif;color:#f7f4ee">4.9/5</div><div style="font:400 12px/1.4 'Hanken Grotesk',sans-serif;color:rgba(247,244,238,.65);margin-top:6px">across 412 reviews</div></div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isContact }}">
+<section>
+<div style="max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:clamp(26px,4vw,48px)">
+<div style="padding:clamp(36px,5vw,56px) 0">
+<h1 style="font:400 clamp(28px,3.8vw,40px)/1.1 'Instrument Serif',serif;margin:0 0 10px">Talk to a human first</h1>
+<p style="font:400 15px/1.65 'Hanken Grotesk',sans-serif;color:#5c6a65;margin:0 0 26px;max-width:460px">Pick a slot in your own time zone. Twenty minutes, no obligation, and you'll leave knowing whether this is realistic.</p>
+<div style="background:#f7f4ee;border:1px solid rgba(23,33,30,.14);border-radius:6px;padding:20px">
+<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;margin-bottom:14px"><span style="font:600 13.5px 'Hanken Grotesk',sans-serif">Thu 17 Sept</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:#6b7a74">SHOWING IN ET</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(76px,100%),1fr));gap:8px">
+<div onClick="{{ pickSlot0730 }}" style="border:1px solid {{ b0730 }};background:{{ g0730 }};color:{{ f0730 }};border-radius:4px;padding:11px 0;text-align:center;font:500 12.5px 'IBM Plex Mono',monospace;cursor:pointer">07:30</div>
+<div onClick="{{ pickSlot0800 }}" style="border:1px solid {{ b0800 }};background:{{ g0800 }};color:{{ f0800 }};border-radius:4px;padding:11px 0;text-align:center;font:500 12.5px 'IBM Plex Mono',monospace;cursor:pointer">08:00</div>
+<div onClick="{{ pickSlot0930 }}" style="border:1px solid {{ b0930 }};background:{{ g0930 }};color:{{ f0930 }};border-radius:4px;padding:11px 0;text-align:center;font:500 12.5px 'IBM Plex Mono',monospace;cursor:pointer">09:30</div>
+<div onClick="{{ pickSlot1000 }}" style="border:1px solid {{ b1000 }};background:{{ g1000 }};color:{{ f1000 }};border-radius:4px;padding:11px 0;text-align:center;font:500 12.5px 'IBM Plex Mono',monospace;cursor:pointer">10:00</div>
+<div onClick="{{ pickSlot1100 }}" style="border:1px solid {{ b1100 }};background:{{ g1100 }};color:{{ f1100 }};border-radius:4px;padding:11px 0;text-align:center;font:500 12.5px 'IBM Plex Mono',monospace;cursor:pointer">11:00</div>
+<div style="border:1px solid rgba(23,33,30,.1);border-radius:4px;padding:11px 0;text-align:center;font:500 12.5px 'IBM Plex Mono',monospace;color:#c0c8c4;text-decoration:line-through">11:30</div>
+</div>
+<div style="background:oklch(0.63 0.11 48);color:#fff;text-align:center;font:600 13.5px 'Hanken Grotesk',sans-serif;padding:13px;border-radius:4px;margin-top:14px;cursor:pointer" style-hover="background:oklch(0.56 0.12 48)">{{ bookLabel }}</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:22px;margin-top:24px;font:400 13.5px/1.6 'Hanken Grotesk',sans-serif"><div><div style="font:500 10.5px 'IBM Plex Mono',monospace;color:#8a968f;margin-bottom:5px">CANADA / US</div><a href="tel:+16470000000">+1 647 000 0000</a></div><div><div style="font:500 10.5px 'IBM Plex Mono',monospace;color:#8a968f;margin-bottom:5px">SPAIN</div><a href="tel:+34963000000">+34 963 000 000</a></div><div><div style="font:500 10.5px 'IBM Plex Mono',monospace;color:#8a968f;margin-bottom:5px">EMAIL</div><a href="mailto:hello@avidoro.es">hello@avidoro.es</a></div></div>
+</div>
+<div style="display:flex;flex-direction:column">
+<div style="flex:1;min-height:240px"><image-slot id="av-contact-map" shape="rect" placeholder="Map — three office pins"></image-slot></div>
+<div>
+<div style="padding:18px 0;border-bottom:1px solid rgba(23,33,30,.1)"><div style="font:600 14px 'Hanken Grotesk',sans-serif">Barcelona</div><div style="font:400 12.5px/1.5 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:3px">Carrer de Pau Claris 100, 08009 · head office</div></div>
+<div style="padding:18px 0;border-bottom:1px solid rgba(23,33,30,.1)"><div style="font:600 14px 'Hanken Grotesk',sans-serif">Marbella</div><div style="font:400 12.5px/1.5 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:3px">Av. Ricardo Soriano 20, 29601 · North America desk</div></div>
+<div style="padding:18px 0"><div style="font:600 14px 'Hanken Grotesk',sans-serif">Valencia</div><div style="font:400 12.5px/1.5 'Hanken Grotesk',sans-serif;color:#6b7a74;margin-top:3px">Carrer de Colón 60, 46004 · insurance &amp; residency</div></div>
+</div>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isDashboard }}">
+<section style="background:#f2efe8;min-height:70vh">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(28px,4vw,40px) clamp(18px,4vw,44px) clamp(40px,5vw,56px)">
+<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:24px">
+<div><div style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8a968f;margin-bottom:8px">FILE AV-2026-1184 · MORAIRA, ALICANTE</div><h1 style="font:400 clamp(26px,3.4vw,36px)/1.12 'Instrument Serif',serif;margin:0">Valuation booked — nothing needed from you</h1></div>
+<div style="background:#fff;border:1px solid rgba(23,33,30,.14);border-radius:6px;padding:12px 18px;font:400 12.5px 'Hanken Grotesk',sans-serif;color:#6b7a74">Est. completion <strong style="color:#17211e">6 Nov 2026</strong></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:20px;align-items:start">
+<div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+<div style="background:#fff;border:1px solid rgba(23,33,30,.12);border-radius:6px;padding:26px 28px">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8a968f;margin-bottom:22px">PROGRESS</div>
+<div style="display:flex;flex-wrap:wrap;gap:14px">
+<div style="flex:1 1 120px"><div style="height:5px;background:oklch(0.45 0.06 185);border-radius:3px"></div><div style="font:600 13px 'Hanken Grotesk',sans-serif;margin-top:12px">Pre-approval</div><div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8a968f;margin-top:4px">12 AUG ✓</div></div>
+<div style="flex:1 1 120px"><div style="height:5px;background:oklch(0.45 0.06 185);border-radius:3px"></div><div style="font:600 13px 'Hanken Grotesk',sans-serif;margin-top:12px">Offer accepted</div><div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#8a968f;margin-top:4px">28 AUG ✓</div></div>
+<div style="flex:1 1 120px"><div style="height:5px;background:oklch(0.63 0.11 48);border-radius:3px"></div><div style="font:600 13px 'Hanken Grotesk',sans-serif;color:oklch(0.5 0.11 48);margin-top:12px">Valuation</div><div style="font:400 11.5px 'IBM Plex Mono',monospace;color:oklch(0.5 0.11 48);margin-top:4px">18 SEP · BOOKED</div></div>
+<div style="flex:1 1 120px"><div style="height:5px;background:rgba(23,33,30,.14);border-radius:3px"></div><div style="font:600 13px 'Hanken Grotesk',sans-serif;color:#a3aeaa;margin-top:12px">Binding offer</div><div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#a3aeaa;margin-top:4px">EARLY OCT</div></div>
+<div style="flex:1 1 120px"><div style="height:5px;background:rgba(23,33,30,.14);border-radius:3px"></div><div style="font:600 13px 'Hanken Grotesk',sans-serif;color:#a3aeaa;margin-top:12px">Notary &amp; keys</div><div style="font:400 11.5px 'IBM Plex Mono',monospace;color:#a3aeaa;margin-top:4px">6 NOV</div></div>
+</div>
+</div>
+<div style="background:#fff;border:1px solid rgba(23,33,30,.12);border-radius:6px;padding:26px 28px">
+<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:baseline;margin-bottom:18px"><div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8a968f">DOCUMENTS · 9 OF 11</div><span style="font:600 12.5px 'Hanken Grotesk',sans-serif;color:oklch(0.45 0.06 185);cursor:pointer">Upload centre →</span></div>
+<div style="display:flex;flex-direction:column;gap:1px;background:rgba(23,33,30,.09);border:1px solid rgba(23,33,30,.09);border-radius:5px;overflow:hidden">
+<div style="background:#fff;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;padding:13px 16px"><span style="font:400 14px 'Hanken Grotesk',sans-serif">Passports — both applicants</span><span style="font:600 10.5px 'IBM Plex Mono',monospace;color:oklch(0.42 0.06 185)">RECEIVED</span></div>
+<div style="background:#fff;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;padding:13px 16px"><span style="font:400 14px 'Hanken Grotesk',sans-serif">NIE certificates</span><span style="font:600 10.5px 'IBM Plex Mono',monospace;color:oklch(0.42 0.06 185)">RECEIVED</span></div>
+<div style="background:#fff;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;padding:13px 16px"><span style="font:400 14px 'Hanken Grotesk',sans-serif">T1 returns 2024 &amp; 2025</span><span style="font:600 10.5px 'IBM Plex Mono',monospace;color:oklch(0.42 0.06 185)">RECEIVED</span></div>
+<div style="background:#fff;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;padding:13px 16px"><span style="font:400 14px 'Hanken Grotesk',sans-serif">Toronto rental lease</span><span style="font:600 10.5px 'IBM Plex Mono',monospace;color:oklch(0.5 0.11 48)">WITH TRANSLATOR</span></div>
+<div style="background:#fff;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;padding:13px 16px"><span style="font:400 14px 'Hanken Grotesk',sans-serif">Life insurance medical form</span><span style="font:600 10.5px 'IBM Plex Mono',monospace;color:#8a968f">NOT YET NEEDED</span></div>
+</div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+<div style="background:#17211e;border-radius:6px;padding:24px;color:#f7f4ee">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:oklch(0.85 0.09 48);margin-bottom:16px">YOUR MORTGAGE</div>
+<div style="display:flex;flex-direction:column;gap:12px;font:400 13.5px 'Hanken Grotesk',sans-serif">
+<div style="display:flex;gap:10px;justify-content:space-between"><span style="color:rgba(247,244,238,.68)">Loan</span><span style="font-family:'IBM Plex Mono',monospace">€591,500</span></div>
+<div style="display:flex;gap:10px;justify-content:space-between"><span style="color:rgba(247,244,238,.68)">Rate</span><span style="font-family:'IBM Plex Mono',monospace">2.85% fixed 25y</span></div>
+<div style="display:flex;gap:10px;justify-content:space-between"><span style="color:rgba(247,244,238,.68)">Monthly</span><span style="font-family:'IBM Plex Mono',monospace">{{ dashMonthly }}</span></div>
+<div style="display:flex;gap:10px;justify-content:space-between"><span style="color:rgba(247,244,238,.68)">Funds to notary</span><span style="font-family:'IBM Plex Mono',monospace">€378,200</span></div>
+</div>
+</div>
+<div style="background:#fff;border:1px solid rgba(23,33,30,.12);border-radius:6px;padding:22px 24px">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8a968f;margin-bottom:14px">HEALTH COVER</div>
+<div style="font:400 20px/1.25 'Instrument Serif',serif;margin-bottom:6px">Complete tier · 2 adults</div>
+<div style="font:400 13px/1.6 'Hanken Grotesk',sans-serif;color:#5c6a65">Quote valid to 30 Sep. Starts the day your residency application is filed.</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-top:16px;border-top:1px solid rgba(23,33,30,.1);padding-top:14px"><span style="font:600 17px 'Hanken Grotesk',sans-serif">{{ dashHealth }} / mo</span><span style="font:600 12.5px 'Hanken Grotesk',sans-serif;color:oklch(0.45 0.06 185);cursor:pointer">Accept quote →</span></div>
+</div>
+<div style="background:#fff;border:1px solid rgba(23,33,30,.12);border-radius:6px;padding:22px 24px">
+<div style="font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#8a968f;margin-bottom:14px">NEXT ACTION</div>
+<div style="font:400 14.5px/1.65 'Hanken Grotesk',sans-serif;margin-bottom:14px">Valuer visits the property on 18 Sep at 11:00 CET. The seller's agent will let them in — you don't need to be there, or awake.</div>
+<div style="display:flex;flex-wrap:wrap;gap:9px"><div style="background:#17211e;color:#f7f4ee;font:600 12.5px 'Hanken Grotesk',sans-serif;padding:11px 16px;border-radius:4px;cursor:pointer" style-hover="background:#28352f">Add to calendar</div><div onClick="{{ goContact }}" style="border:1px solid rgba(23,33,30,.2);font:600 12.5px 'Hanken Grotesk',sans-serif;padding:11px 16px;border-radius:4px;cursor:pointer" style-hover="border-color:#17211e">Message Elena</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</sc-if>
+
+</main>
+
+<footer style="background:#17211e;color:rgba(247,244,238,.65)">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(36px,5vw,52px) clamp(18px,4vw,44px);display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,54px);justify-content:space-between">
+<div style="flex:1 1 300px;max-width:380px"><div style="font:400 26px/1 'Instrument Serif',serif;color:#f7f4ee;margin-bottom:12px">Avidoro</div><p style="font:400 13px/1.7 'Hanken Grotesk',sans-serif;margin:0">Independent mortgage brokerage, buyer's agency and insurance intermediary. Registered with the Bank of Spain and the DGSFP.</p></div>
+<div style="display:flex;flex-wrap:wrap;gap:clamp(26px,4vw,54px);font:400 13px/2 'Hanken Grotesk',sans-serif">
+<div><div style="color:#f7f4ee;font-weight:600;margin-bottom:6px">Services</div><div onClick="{{ goMortgages }}" style="cursor:pointer" style-hover="color:#f7f4ee">Mortgages</div><div onClick="{{ goProperty }}" style="cursor:pointer" style-hover="color:#f7f4ee">Property search</div><div onClick="{{ goHealth }}" style="cursor:pointer" style-hover="color:#f7f4ee">Health cover</div><div style="cursor:pointer" style-hover="color:#f7f4ee">Legal &amp; tax</div></div>
+<div><div style="color:#f7f4ee;font-weight:600;margin-bottom:6px">Guides</div><div style="cursor:pointer" style-hover="color:#f7f4ee">Buying as a Canadian</div><div style="cursor:pointer" style-hover="color:#f7f4ee">Buying as a US citizen</div><div style="cursor:pointer" style-hover="color:#f7f4ee">Costs &amp; taxes</div><div style="cursor:pointer" style-hover="color:#f7f4ee">NIE &amp; paperwork</div></div>
+<div><div style="color:#f7f4ee;font-weight:600;margin-bottom:6px">Company</div><div onClick="{{ goAbout }}" style="cursor:pointer" style-hover="color:#f7f4ee">About us</div><div onClick="{{ goAbout }}" style="cursor:pointer" style-hover="color:#f7f4ee">Our advisors</div><div onClick="{{ goContact }}" style="cursor:pointer" style-hover="color:#f7f4ee">Offices</div><div style="cursor:pointer" style-hover="color:#f7f4ee">Careers</div></div>
+</div>
+</div>
+<div style="border-top:1px solid rgba(247,244,238,.14)"><div style="max-width:1240px;margin:0 auto;padding:18px clamp(18px,4vw,44px);display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;font:400 11.5px 'IBM Plex Mono',monospace"><span>© 2026 AVIDORO SL · B-00000000</span><span>Rates indicative. Avidoro is an intermediary and does not lend.</span></div></div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+const RATES = { EUR: 1, USD: 1.14, CAD: 1.61 };
+const SYM = { EUR: "€", USD: "$", CAD: "C$" };
+
+class Component extends DCLogic {
+  state = {
+    route: "home", lang: "en", cur: "USD", step: 1,
+    country: "Canada", priceEur: 780000, incomeEur: 163000,
+    emp: "self", mortgageReady: true, slot: "09:30",
+    vw: typeof window !== "undefined" ? window.innerWidth : 1280, menuOpen: false
+  };
+
+  onResize = () => {
+    const vw = window.innerWidth;
+    this.setState((p) => (vw >= 1080 && p.menuOpen ? { vw, menuOpen: false } : { vw }));
+  };
+  async loadRates() {
+    try {
+      const r = await fetch("https://api.frankfurter.dev/v1/latest?base=EUR&symbols=USD,CAD");
+      const j = await r.json();
+      if (j && j.rates && j.rates.USD) {
+        RATES.USD = j.rates.USD; RATES.CAD = j.rates.CAD;
+        this.setState({ fxLive: true, fxDate: j.date });
+      }
+    } catch (e) {}
+    try {
+      const r = await fetch("https://data-api.ecb.europa.eu/service/data/FM/M.U2.EUR.RT.MM.EURIBOR1YD_.HSTA?lastNObservations=1&format=csvdata");
+      const t = await r.text();
+      const lines = t.trim().split("\n"); const head = lines[0].split(","); const row = lines[lines.length - 1].split(",");
+      const v = parseFloat(row[head.indexOf("OBS_VALUE")]); const p = row[head.indexOf("TIME_PERIOD")];
+      if (!isNaN(v)) this.setState({ euribor: v, euriborPeriod: p });
+    } catch (e) {}
+  }
+  componentDidMount() {
+    this.loadRates(); this.ratesTimer = setInterval(() => this.loadRates(), 15 * 60 * 1000);
+    window.addEventListener("resize", this.onResize); window.addEventListener("popstate", this.onHash); window.addEventListener("hashchange", this.onHash);
+    this.onResize(); const r = this.routeFromHash(); if (r !== this.state.route) this.setState({ route: r });
+  }
+  componentWillUnmount() { clearInterval(this.ratesTimer); window.removeEventListener("resize", this.onResize); window.removeEventListener("popstate", this.onHash); window.removeEventListener("hashchange", this.onHash); }
+
+  routeFromHash() {
+    try { const r = (window.location.hash || "").replace(/^#\/?/, ""); return ["home","mortgages","property","health","quote","about","contact","dashboard"].includes(r) ? r : "home"; } catch (e) { return "home"; }
+  }
+  onHash = () => {
+    const route = this.routeFromHash();
+    if (route !== this.state.route) { this.setState({ route, menuOpen: false }); window.scrollTo({ top: 0, behavior: "instant" }); }
+  };
+  go = (route) => {
+    this.setState({ route, menuOpen: false });
+    try { const want = "#/" + route; if (window.location.hash !== want) window.history.pushState(null, "", want); } catch (e) {}
+    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "instant" });
+  };
+
+  money(eur, dp) {
+    const v = eur * RATES[this.state.cur];
+    return SYM[this.state.cur] + Math.round(v).toLocaleString("en-US");
+  }
+  eurLabel(eur) { return "€" + Math.round(eur).toLocaleString("en-US"); }
+
+  calc() {
+    const s = this.state;
+    const ltv = s.country === "Spain" ? 0.8 : 0.7;
+    const haircut = s.emp === "self" ? 0.9 : s.emp === "retired" ? 0.95 : 1;
+    const affordCap = s.incomeEur * 4.4 * haircut;
+    const loan = Math.max(0, Math.min(s.priceEur * ltv, affordCap));
+    const r = 0.0285 / 12, n = 300;
+    const monthly = loan > 0 ? (loan * r) / (1 - Math.pow(1 + r, -n)) : 0;
+    const costs = s.priceEur * 0.11;
+    const deposit = s.priceEur - loan + costs;
+    const netMonthly = (s.incomeEur * 0.64) / 12;
+    const dti = netMonthly > 0 ? Math.round((monthly / netMonthly) * 100) : 0;
+    return { ltv, loan, monthly, costs, deposit, dti };
+  }
+
+  pill(active) {
+    return active
+      ? { bg: "#17211e", fg: "#f7f4ee", border: "#17211e" }
+      : { bg: "#fff", fg: "#3e4b46", border: "rgba(23,33,30,.2)" };
+  }
+
+  toggleBtn(active) {
+    return active ? { bg: "#17211e", fg: "#f7f4ee" } : { bg: "transparent", fg: "#6b7a74" };
+  }
+
+  stepCopy() {
+    const s = this.state;
+    if (s.step === 1) return {
+      eyebrow: "Question 1 — where you live",
+      title: "Where do you pay tax today?",
+      body: "Spanish lenders price a non-resident file differently from a resident one — this is the single biggest factor in what you can borrow."
+    };
+    if (s.step === 2) return {
+      eyebrow: "Question 2 — the property",
+      title: "Roughly what will the property cost?",
+      body: "An estimate is fine. Move the slider and the numbers on the right update as you go."
+    };
+    if (s.step === 3) return {
+      eyebrow: "Question 3 — your income",
+      title: "What's your household income before tax?",
+      body: "In your home currency — we convert. Spanish banks assess affordability on gross income and existing debt, not on a credit score."
+    };
+    return {
+      eyebrow: "Last step — where to send it",
+      title: "Who should we send this to?",
+      body: "We'll email the full breakdown and, if you want, put two real bank offers in front of you within 48 hours."
+    };
+  }
+
+  whyNote() {
+    const s = this.state;
+    if (s.country !== "Spain") {
+      if (s.emp === "self") return "Self-employed files are assessed on two years of accounts, so banks apply roughly a 10% haircut to declared income. Three of our 14 lenders don't — that's usually where we place these.";
+      if (s.emp === "retired") return "Pension income is accepted by most of our lenders, though several cap the term at age 75, which raises the monthly payment rather than lowering the loan.";
+      return "As a non-resident you're capped near 70% LTV regardless of income, so the deposit — not affordability — is usually the binding constraint.";
+    }
+    return "As a Spanish tax resident buying a primary home, you can reach 80% LTV and a 30-year term, which is why the deposit figure drops sharply here.";
+  }
+
+  listings() {
+    const rows = [
+      { slot: "av-lst-1", slotLabel: "Villa exterior", title: "Sea-view villa, Moraira", specs: "4 bed · 3 bath · 240m² · plot 800m²", eur: 845000, verified: true },
+      { slot: "av-lst-2", slotLabel: "Terrace", title: "New-build apartment, Dénia", specs: "3 bed · 2 bath · 118m² · communal pool", eur: 620000, verified: false },
+      { slot: "av-lst-3", slotLabel: "Finca", title: "Restored finca, Jávea", specs: "5 bed · 4 bath · 310m² · plot 1,400m²", eur: 1000000, verified: true }
+    ];
+    const r = 0.0285 / 12, n = 300;
+    return rows.map((row) => {
+      const loan = row.eur * 0.7;
+      const monthly = (loan * r) / (1 - Math.pow(1 + r, -n));
+      const deposit = row.eur - loan + row.eur * 0.11;
+      return {
+        slot: row.slot, slotLabel: row.slotLabel, title: row.title, specs: row.specs,
+        price: this.money(row.eur), priceEur: this.eurLabel(row.eur),
+        deposit: this.money(deposit), monthly: this.money(monthly),
+        badge: row.verified ? "LEGALS VERIFIED" : "CHECK PENDING",
+        badgeBg: row.verified ? "oklch(0.95 0.03 185)" : "#f3efe7",
+        badgeFg: row.verified ? "oklch(0.4 0.06 185)" : "#5c6a65"
+      };
+    });
+  }
+
+  slotStyles(time) {
+    const a = this.state.slot === time;
+    return {
+      b: a ? "#17211e" : "rgba(23,33,30,.18)",
+      g: a ? "#17211e" : "#fff",
+      f: a ? "#f7f4ee" : "#3e4b46"
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const c = this.calc();
+    const en = s.lang === "en";
+    const sc = this.stepCopy();
+    const stepBar = (i) => (s.step >= i ? "oklch(0.63 0.11 48)" : "rgba(23,33,30,.14)");
+    const ca = this.pill(s.country === "Canada"), us = this.pill(s.country === "United States"), esr = this.pill(s.country === "Spain");
+    const sal = this.pill(s.emp === "salaried"), self = this.pill(s.emp === "self"), ret = this.pill(s.emp === "retired");
+    const enT = this.toggleBtn(en), esT = this.toggleBtn(!en);
+    const usdT = this.toggleBtn(s.cur === "USD"), cadT = this.toggleBtn(s.cur === "CAD"), eurT = this.toggleBtn(s.cur === "EUR");
+    const t = {}; ["07:30", "08:00", "09:30", "10:00", "11:00"].forEach((x) => { t[x] = this.slotStyles(x); });
+
+    const fmtD = (d) => { try { return new Date(d + "T12:00:00Z").toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase(); } catch (e) { return d; } };
+    return {
+      euriborTxt: (s.euribor ?? 2.98).toFixed(2) + "%" + (s.euriborPeriod ? " (" + s.euriborPeriod + " AVG)" : ""),
+      usdTxt: RATES.USD.toFixed(4), cadTxt: RATES.CAD.toFixed(4),
+      liveDot: s.fxLive ? "oklch(0.75 0.15 150)" : "rgba(247,244,238,.35)",
+      ratesStamp: s.fxLive ? "LIVE FX · ECB " + fmtD(s.fxDate) : "INDICATIVE RATES",
+      isHome: s.route === "home", isMortgages: s.route === "mortgages", isProperty: s.route === "property",
+      isHealth: s.route === "health", isQuote: s.route === "quote", isAbout: s.route === "about",
+      isContact: s.route === "contact", isDashboard: s.route === "dashboard",
+      isEn: en, isEs: !en,
+      wide: s.vw >= 1080, narrow: s.vw < 1080,
+      menuOpen: s.menuOpen && s.vw < 1080,
+      toggleMenu: () => this.setState((p) => ({ menuOpen: !p.menuOpen })),
+      menuBg: s.menuOpen ? "#17211e" : "transparent",
+      menuInk: s.menuOpen ? "#f7f4ee" : "#17211e",
+      navMortgages: en ? "Mortgages" : "Hipotecas",
+      navProperty: en ? "Property" : "Inmuebles",
+      navHealth: en ? "Health cover" : "Salud",
+      navAbout: en ? "About" : "Nosotros",
+      navContact: en ? "Contact" : "Contacto",
+      navDashboard: en ? "My file" : "Mi expediente",
+      goHome: () => this.go("home"), goMortgages: () => this.go("mortgages"), goProperty: () => this.go("property"),
+      goHealth: () => this.go("health"), goQuote: () => this.go("quote"), goAbout: () => this.go("about"),
+      goContact: () => this.go("contact"), goDashboard: () => this.go("dashboard"),
+      setEn: () => this.setState({ lang: "en" }), setEs: () => this.setState({ lang: "es" }),
+      enBg: enT.bg, enFg: enT.fg, esBg: esT.bg, esFg: esT.fg,
+      setUsd: () => this.setState({ cur: "USD" }), setCad: () => this.setState({ cur: "CAD" }), setEur: () => this.setState({ cur: "EUR" }),
+      usdBg: usdT.bg, usdFg: usdT.fg, cadBg: cadT.bg, cadFg: cadT.fg, eurBg: eurT.bg, eurFg: eurT.fg,
+      ctaQuote: en ? "Instant quote" : "Presupuesto",
+      quoteCardTitle: en ? "Check what you can borrow" : "Calcule su capacidad",
+      quoteCardSub: en ? "Two minutes, no credit check, no obligation." : "Dos minutos, sin consulta de crédito ni compromiso.",
+      quoteCardCta: en ? "See my numbers" : "Ver mis cifras",
+      country: s.country,
+      setCountry: (e) => this.setState({ country: e.target.value }),
+      setPrice: (e) => this.setState({ priceEur: Number(e.target.value) }),
+      setIncome: (e) => this.setState({ incomeEur: Number(e.target.value) }),
+      priceEur: s.priceEur, incomeEur: s.incomeEur,
+      priceLabel: this.money(s.priceEur), priceEurLabel: this.eurLabel(s.priceEur),
+      incomeLabel: this.money(s.incomeEur) + " / yr",
+      loanLabel: this.money(c.loan), loanEurLabel: this.eurLabel(c.loan),
+      ltvLabel: Math.round(c.ltv * 100) + "%",
+      monthlyLabel: this.money(c.monthly), depositLabel: this.money(c.deposit), costsLabel: this.money(c.costs),
+      dtiLabel: c.dti + "% · " + (c.dti < 35 ? "OK" : c.dti < 45 ? "TIGHT" : "TOO HIGH"),
+      dtiColor: c.dti < 35 ? "oklch(0.82 0.12 145)" : c.dti < 45 ? "oklch(0.85 0.09 48)" : "oklch(0.72 0.15 25)",
+      whyNote: this.whyNote(),
+      step: s.step, atStep1: s.step === 1, atStep2: s.step === 2, atStep3: s.step === 3, atStep4: s.step === 4,
+      s1: stepBar(1), s2: stepBar(2), s3: stepBar(3), s4: stepBar(4),
+      stepEyebrow: sc.eyebrow, stepTitle: sc.title, stepBody: sc.body,
+      stepCounter: "Step " + s.step + " of 4",
+      nextLabel: s.step === 4 ? "Send me the breakdown" : "Continue",
+      canGoBack: s.step > 1,
+      nextStep: () => this.setState((p) => ({ step: Math.min(4, p.step + 1) })),
+      prevStep: () => this.setState((p) => ({ step: Math.max(1, p.step - 1) })),
+      pickCanada: () => this.setState({ country: "Canada", cur: "CAD" }),
+      pickUs: () => this.setState({ country: "United States", cur: "USD" }),
+      pickSpain: () => this.setState({ country: "Spain", cur: "EUR" }),
+      caBg: ca.bg, caFg: ca.fg, caBorder: ca.border,
+      usBg: us.bg, usFg: us.fg, usBorder: us.border,
+      esrBg: esr.bg, esrFg: esr.fg, esrBorder: esr.border,
+      pickSalaried: () => this.setState({ emp: "salaried" }), pickSelf: () => this.setState({ emp: "self" }), pickRetired: () => this.setState({ emp: "retired" }),
+      salBg: sal.bg, salFg: sal.fg, salBorder: sal.border,
+      selfBg: self.bg, selfFg: self.fg, selfBorder: self.border,
+      retBg: ret.bg, retFg: ret.fg, retBorder: ret.border,
+      listings: this.listings(),
+      resultCount: s.mortgageReady ? 61 : 148,
+      resultNote: s.mortgageReady ? "filtered to your pre-approval" : "61 verified legal status",
+      toggleReady: () => this.setState((p) => ({ mortgageReady: !p.mortgageReady })),
+      readyLabel: s.mortgageReady ? "Mortgage-ready only ✓" : "Mortgage-ready only",
+      readyBg: s.mortgageReady ? "oklch(0.97 0.02 48)" : "#fff",
+      readyBorder: s.mortgageReady ? "oklch(0.63 0.11 48)" : "rgba(23,33,30,.18)",
+      readyFg: s.mortgageReady ? "oklch(0.48 0.11 48)" : "#3e4b46",
+      tier1: this.money(62), tier1Eur: "€62", tier2: this.money(95), tier2Eur: "€95", tier3: this.money(170), tier3Eur: "€170",
+      bundleSaving: "−" + this.money(13100),
+      dashMonthly: this.money(2754), dashHealth: this.money(190),
+      b0730: t["07:30"].b, g0730: t["07:30"].g, f0730: t["07:30"].f, pickSlot0730: () => this.setState({ slot: "07:30" }),
+      b0800: t["08:00"].b, g0800: t["08:00"].g, f0800: t["08:00"].f, pickSlot0800: () => this.setState({ slot: "08:00" }),
+      b0930: t["09:30"].b, g0930: t["09:30"].g, f0930: t["09:30"].f, pickSlot0930: () => this.setState({ slot: "09:30" }),
+      b1000: t["10:00"].b, g1000: t["10:00"].g, f1000: t["10:00"].f, pickSlot1000: () => this.setState({ slot: "10:00" }),
+      b1100: t["11:00"].b, g1100: t["11:00"].g, f1100: t["11:00"].f, pickSlot1100: () => this.setState({ slot: "11:00" }),
+      bookLabel: "Book " + s.slot + " ET with Tom"
+    };
+  }
+}
+</script>
+</body>
+</html>
